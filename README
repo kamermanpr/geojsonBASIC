@@ -1,0 +1,6 @@
+# geojsonBASIC
+
+## Under-construction
+
+A wrapper for generating geojson files from shapefiles. Also contains 1:110 and 1:50 world maps showing landmasses, countries and states/provinces.
+
