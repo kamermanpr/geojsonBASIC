@@ -1,17 +1,15 @@
-# Convert Natural Earth shapefiles to geojson format
-
-# Load packages
-library(rgdal) # reading and writing shape files
-library(rgeos) # simplify (reduce) file
-library(geojsonio) # for conversion to geojson
-library(geojsonlint) # for validation of geojson
-
+#' make_geojson
+#'
+#' A convenience wrapper building on functions from the \link[rgdal]{readOGR}, \link[sp]{spTransform}, \link[rgeos]{gSimplify}, \link[geojsonio]{geojson_json}, \link[geojsonio]{geojson_write}, and \link[geojsonlint]{geojson_lint} to convert shapefiles to geojson files.
+#'
+#' @export
 # Function
 make_geojson <- function(dir.path,
                          input.file,
                          output.file = NULL,
                          crs = '+init=epsg:4238',
-                         simplify = 1,
+                         simplify = FALSE,
+                         tolerance = 1,
                          topology = TRUE,
                          validate = FALSE) {
 
@@ -32,9 +30,13 @@ make_geojson <- function(dir.path,
     shape_1 <- sp::spTransform(x = shape,
                              CRSobj = CRS(crs))
     # Simplify
+    if(simplify == TRUE) {
     shape_2 <- rgeos::gSimplify(spgeom = shape_1,
-                              tol = simplify,
+                              tol = tolerance,
                               topologyPreserve = topology)
+    } else {
+        shape_2 <- shape_1
+    }
     # Transform to SpatialPolygonsDataFrame
     #shape_3 <- sp::SpatialPolygonsDataFrame(Sr = shape_2,
                                         #data = shape_1@data)
@@ -53,9 +55,3 @@ make_geojson <- function(dir.path,
                 }
     }
 }
-
-make_geojson(dir.path = './ne_50m_admin_1_states_provinces_lakes',
-             input.file = 'ne_50m_admin_1_states_provinces_lakes',
-             output.file = './geojson-provinces/provinces_50m',
-             validate = TRUE)
-
