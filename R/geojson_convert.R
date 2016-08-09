@@ -44,7 +44,7 @@ geojson_convert <- function(dir.path,
                             layer = input.file)
     # Set coordinate reference system
     shape_1 <- sp::spTransform(x = shape,
-                             CRSobj = CRS(crs))
+                             CRSobj = sp::CRS(crs))
     # Simplify
     if(simplify == TRUE) {
     shape_2 <- rgeos::gSimplify(spgeom = shape_1,
@@ -61,7 +61,7 @@ geojson_convert <- function(dir.path,
                              file = file_name_2)
     # Validate
     if(validate == TRUE) {
-        valid <- geojsonlint::geojson_lint(x = as.location(file_name_2))
+        valid <- geojsonlint::geojson_lint(x = geojsonlint::as.location(file_name_2))
                 if(valid == 'TRUE') {
                     message('Passes validity check')
                 } else {
