@@ -1,4 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-/inst/extdata/
-
+^README\.md$
+^\.travis\.yml$
+^.*\.geojson$
