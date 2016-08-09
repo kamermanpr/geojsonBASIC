@@ -13,6 +13,13 @@ make_geojson <- function(dir.path,
                          topology = TRUE,
                          validate = FALSE) {
 
+    # Check if path to file exists
+    file_path <- paste0(dir.path, '/', input.file, '.shp')
+
+    if(!file.exists(file_path)) {
+        stop('Input file name or directory does not exist.')
+    } else {
+
     # Default action: name
     if(!is.null(output.file)) {
         file_name <- output.file
@@ -20,7 +27,7 @@ make_geojson <- function(dir.path,
         file_name <- input.file
     }
 
-    ## Add extension to file_name
+    ## Add geojson extension to file_name
     file_name_2 <- paste0(file_name, '.geojson')
 
     # Read in the shape file
@@ -38,8 +45,6 @@ make_geojson <- function(dir.path,
         shape_2 <- shape_1
     }
     # Transform to SpatialPolygonsDataFrame
-    #shape_3 <- sp::SpatialPolygonsDataFrame(Sr = shape_2,
-                                        #data = shape_1@data)
     shape_3 <- geojsonio::geojson_json(input = shape_2,
                                        geometry = 'polygon')
     # Transform to geojson
@@ -48,10 +53,11 @@ make_geojson <- function(dir.path,
     # Validate
     if(validate == TRUE) {
         valid <- geojsonlint::geojson_lint(x = as.location(file_name_2))
-                if(valid[1] == 'TRUE') {
-                    message('Conversion complete, and file passes validity check')
+                if(valid == 'TRUE') {
+                    message('Passes validity check')
                 } else {
-                    stop('Converted file fails validity check')
+                    stop('Fails validity check')
                 }
+    }
     }
 }
