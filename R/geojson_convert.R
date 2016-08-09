@@ -1,11 +1,11 @@
-#' geojson_convert.
+#' Convert shapefiles to GeoJSON.
 #'
-#' A convenience wrapper building on functions from the \link[rgdal]{readOGR}, \link[sp]{spTransform}, \link[rgeos]{gSimplify}, \link[geojsonio]{geojson_json}, \link[geojsonio]{geojson_write}, and \link[geojsonlint]{geojson_lint} to convert shapefiles to geojson files.
+#' A convenience wrapper building on functions \link[rgdal]{readOGR}, \link[sp]{spTransform}, \link[rgeos]{gSimplify}, \link[geojsonio]{geojson_json}, \link[geojsonio]{geojson_write}, and \link[geojsonlint]{geojson_lint} to convert shapefiles to geojson files.
 #'
 #' @param dir.path Path (no trailing '/') to the 'shapefile' folder. This folder must contain, at a bare minimum, files with the extensions .shp, .shx, and .dbf).
 #' @param input.file A single character string specifying the filename shared by the files in the shapefile folder.
 #' @param output.file A single character string specifying the filename of the output file (no extension, such as '.geojson' is required). The default value is emph{NULL}, and the file will be given the name of the input file name.
-#' @param crs A single character string specifying the Coordinate Reference System to use. The default setting is '+init=epsg:4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0'.
+#' @param crs A single character string specifying the Coordinate Reference System to use. The default value is '+init=epsg:4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0'.
 #' @param simplify Logical (default value is FALSE) specifying whether to simplify the given geometry using the Douglas-Peuker algorithm.
 #' @param tolerance Numerical tolerance value to be used by the Douglas-Peuker algorithm. Greater values produce greater simplification (default value is 0).
 #' @param topology Logical specifying whether the Douglas-Peuker algorithm should attempt to preserve the topology of the original geometry (default value is TRUE).
@@ -19,7 +19,7 @@
 #'
 #' @export
 # Function
-make_geojson <- function(dir.path,
+geojson_convert <- function(dir.path,
                          input.file,
                          output.file = NULL,
                          crs = '+init=epsg:4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0',
@@ -29,11 +29,11 @@ make_geojson <- function(dir.path,
                          validate = FALSE) {
 
     # Check if path to file exists
-    file_path <- paste0(dir.path, '/', input.file, '.shp')
+    #file_path <- paste0(dir.path, '/', input.file, '.shp')
 
-    if(!file.exists(file_path)) {
-        stop('Input file name or directory does not exist.')
-    } else {
+    #if(!file.exists(file_path)) {
+    #    stop('Input file name or directory does not exist.')
+    #} else {
 
     # Default action: name
     if(!is.null(output.file)) {
@@ -74,5 +74,5 @@ make_geojson <- function(dir.path,
                     stop('Fails validity check')
                 }
     }
-    }
+    #}
 }
