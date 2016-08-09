@@ -23,11 +23,11 @@ geojson_convert <- function(dir.path,
                          validate = FALSE) {
 
     # Check if path to file exists
-    #file_path <- paste0(dir.path, '/', input.file, '.shp')
+    file_path <- paste0(dir.path, '/', input.file, '.shp')
 
-    #if(!file.exists(file_path)) {
-    #    stop('Input file name or directory does not exist.')
-    #} else {
+    if(!file.exists(file_path)) {
+        stop('Input file name or directory does not exist.')
+    }
 
     # Default action: name
     if(!is.null(output.file)) {
@@ -68,5 +68,4 @@ geojson_convert <- function(dir.path,
                     stop('Fails validity check')
                 }
     }
-    #}
 }
