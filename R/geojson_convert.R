@@ -1,15 +1,30 @@
-#' make_geojson
+#' geojson_convert.
 #'
 #' A convenience wrapper building on functions from the \link[rgdal]{readOGR}, \link[sp]{spTransform}, \link[rgeos]{gSimplify}, \link[geojsonio]{geojson_json}, \link[geojsonio]{geojson_write}, and \link[geojsonlint]{geojson_lint} to convert shapefiles to geojson files.
+#'
+#' @param dir.path Path (no trailing '/') to the 'shapefile' folder. This folder must contain, at a bare minimum, files with the extensions .shp, .shx, and .dbf).
+#' @param input.file A single character string specifying the filename shared by the files in the shapefile folder.
+#' @param output.file A single character string specifying the filename of the output file (no extension, such as '.geojson' is required). The default value is emph{NULL}, and the file will be given the name of the input file name.
+#' @param crs A single character string specifying the Coordinate Reference System to use. The default setting is '+init=epsg:4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0'.
+#' @param simplify Logical (default value is FALSE) specifying whether to simplify the given geometry using the Douglas-Peuker algorithm.
+#' @param tolerance Numerical tolerance value to be used by the Douglas-Peuker algorithm. Greater values produce greater simplification (default value is 0).
+#' @param topology Logical specifying whether the Douglas-Peuker algorithm should attempt to preserve the topology of the original geometry (default value is TRUE).
+#' @param validate Logical specifying whether to validate the output GeoJSON using the geojsonlint.com web service (default value is FALSE).
+#'
+#' @importFrom rgdal readOGR
+#' @importFrom sp spTransform
+#' @importFrom rgeos gSimplify
+#' @importFrom geojsonio geojson_json geojson_write
+#' @importFrom geojsonlint geojson_lint
 #'
 #' @export
 # Function
 make_geojson <- function(dir.path,
                          input.file,
                          output.file = NULL,
-                         crs = '+init=epsg:4238',
+                         crs = '+init=epsg:4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0',
                          simplify = FALSE,
-                         tolerance = 1,
+                         tolerance = 0,
                          topology = TRUE,
                          validate = FALSE) {
 
