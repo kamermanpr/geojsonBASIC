@@ -6,26 +6,50 @@
 \usage{
 geojson_convert(dir.path, input.file, output.file = NULL,
   crs = "+init=epsg:4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0",
-  simplify = FALSE, tolerance = 0, topology = TRUE, validate = FALSE)
+  box.long = c(-180, 180), box.lat = c(-90, 90), simplify = FALSE,
+  tolerance = 0, topology = TRUE, validate = FALSE)
 }
 \arguments{
-\item{dir.path}{Path (no trailing '/') to the 'shapefile' folder. This folder must contain, at a bare minimum, files with the extensions .shp, .shx, and .dbf).}
+\item{dir.path}{Path (no trailing '/') to the 'shapefile' folder. This
+folder must contain, at a bare minimum, files with the extensions .shp,
+.shx, and .dbf).}
 
-\item{input.file}{A single character string specifying the filename shared by the files in the shapefile folder.}
+\item{input.file}{A single character string specifying the filename shared
+by the files in the shapefile folder.}
 
-\item{output.file}{A single character string specifying the filename of the output file (no extension, such as '.geojson' is required). The default value is emph{NULL}, and the file will be given the name of the input file name.}
+\item{output.file}{A single character string specifying the filename of the
+output file (no extension, such as '.geojson' is required). The default
+value is emph{NULL}, and the file will be given the name of the input
+file name.}
 
-\item{crs}{A single character string specifying the Coordinate Reference System to use. The default value is '+init=epsg:4326 +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0'.}
+\item{crs}{A single character string specifying the Coordinate Reference
+System to use. The default value is '+init=epsg:4326 +proj=longlat +ellp
+=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0'.}
 
-\item{simplify}{Logical (default value is FALSE) specifying whether to simplify the given geometry using the Douglas-Peuker algorithm.}
+\item{box.long}{Set the longitudinal scope of the bounding box (default
+range is -180 to 180 degrees).}
 
-\item{tolerance}{Numerical tolerance value to be used by the Douglas-Peuker algorithm. Greater values produce greater simplification (default value is 0).}
+\item{box.lat}{Set the latitudinal scope of the bounding box (default range
+is -90 to 90 degrees).}
 
-\item{topology}{Logical specifying whether the Douglas-Peuker algorithm should attempt to preserve the topology of the original geometry (default value is TRUE).}
+\item{simplify}{Logical (default value is FALSE) specifying whether to
+simplify the given geometry using the Douglas-Peuker algorithm.}
 
-\item{validate}{Logical specifying whether to validate the output GeoJSON using the geojsonlint.com web service (default value is FALSE).}
+\item{tolerance}{Numerical tolerance value to be used by the Douglas-Peuker
+algorithm. Greater values produce greater simplification (default value is
+0).}
+
+\item{topology}{Logical specifying whether the Douglas-Peuker algorithm
+should attempt to preserve the topology of the original geometry (default
+value is TRUE).}
+
+\item{validate}{Logical specifying whether to validate the output GeoJSON
+using the geojsonlint.com web service (default value is FALSE).}
 }
 \description{
-A convenience wrapper building on functions \link[rgdal]{readOGR}, \link[sp]{spTransform}, \link[rgeos]{gSimplify}, \link[geojsonio]{geojson_json}, \link[geojsonio]{geojson_write}, and \link[geojsonlint]{geojson_lint} to convert shapefiles to geojson files.
+A convenience wrapper building on functions \link[rgdal]{readOGR},
+\link[sp]{spTransform}, \link[rgeos]{gSimplify},
+\link[geojsonio]{geojson_json}, \link[geojsonio]{geojson_write},
+and \link[geojsonlint]{geojson_lint} to convert shapefiles to geojson files.
 }
 
