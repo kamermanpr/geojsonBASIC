@@ -11,12 +11,6 @@
 #' @param topology Logical specifying whether the Douglas-Peuker algorithm should attempt to preserve the topology of the original geometry (default value is TRUE).
 #' @param validate Logical specifying whether to validate the output GeoJSON using the geojsonlint.com web service (default value is FALSE).
 #'
-#' @importFrom rgdal readOGR
-#' @importFrom sp spTransform
-#' @importFrom rgeos gSimplify
-#' @importFrom geojsonio geojson_json geojson_write
-#' @importFrom geojsonlint geojson_lint
-#'
 #' @export
 # Function
 geojson_convert <- function(dir.path,
